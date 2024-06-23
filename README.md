@@ -1,6 +1,6 @@
 # MYDB
 
-**在线体验地址：**http://db.blockcloth.cn
+**在线体验地址：** http://db.blockcloth.cn
 
 ## 项目概述
 
@@ -30,3 +30,5 @@ MYDB 是一个简易版本的 MySQL 数据库。项目涵盖了数据存储、�
 
 ## 执行示例
 ![image](https://github.com/blockCloth/MYDB/assets/93373863/f9739b25-01f3-4a1c-aaba-b9198c609eed)
+![image](https://github.com/blockCloth/MYDB/assets/93373863/0b9e597e-44a5-4856-b6ff-d431b65c6249)
+
