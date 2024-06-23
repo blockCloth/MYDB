@@ -15,11 +15,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("db")
@@ -45,8 +48,17 @@ public class LauncherController {
         }
     }
 
+    @GetMapping("/get-client-ip")
+    public ResponseEntity<Map<String, String>> getClientIp(HttpServletRequest request) {
+        String clientIp = IpUtil.getClientIp(request);
+        Map<String, String> response = new HashMap<>();
+        response.put("ip", clientIp);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("init")
     public ResponseV initDB(HttpServletRequest request) {
+
         String clientIp = IpUtil.getClientIp(request);
         if (!userManager.canInit(clientIp)) {
             return new ResponseV("Maximum user limit reached or user session expired.");

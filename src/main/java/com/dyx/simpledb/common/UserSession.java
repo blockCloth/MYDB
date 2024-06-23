@@ -12,6 +12,7 @@ import lombok.Setter;
 public class UserSession {
     private String userId;
     private long startTime;
+    private long lastAccessedTime;
     private TableManager tableManager;
     private TransactionManager transactionManager;
     private DataManager dataManager;
@@ -20,6 +21,11 @@ public class UserSession {
     public UserSession(String userId, long startTime) {
         this.userId = userId;
         this.startTime = startTime;
+        this.lastAccessedTime = startTime; // 初始化最后访问时间
+    }
+
+    public void updateLastAccessedTime() {
+        this.lastAccessedTime = System.currentTimeMillis();
     }
 
     public void close() {

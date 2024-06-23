@@ -1,6 +1,12 @@
 package com.dyx.simpledb.util;
 
+import org.springframework.web.socket.WebSocketSession;
+
 import javax.servlet.http.HttpServletRequest;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 
 public class IpUtil {
     public static String getClientIp(HttpServletRequest request) {
@@ -32,5 +38,26 @@ public class IpUtil {
         }
 
         return ip;
+    }
+
+    public static String getClientIp(WebSocketSession session) {
+        InetSocketAddress remoteAddress = session.getRemoteAddress();
+        InetAddress inetAddress = remoteAddress.getAddress();
+        String clientIp = inetAddress.getHostAddress();
+
+        // Check if the address is IPv4
+        if (inetAddress instanceof Inet4Address) {
+            return clientIp;
+        }
+
+        // Handle IPv6 to IPv4 mapping
+        if (inetAddress instanceof Inet6Address) {
+            String ipv6 = clientIp;
+            if (ipv6.startsWith("::ffff:")) {
+                return ipv6.substring(7);
+            }
+        }
+
+        return clientIp;
     }
 }
